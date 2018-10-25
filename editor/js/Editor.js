@@ -6,7 +6,8 @@ var Editor = function () {
 
 	this.DEFAULT_CAMERA = new THREE.PerspectiveCamera( 50, 1, 0.01, 1000 );
 	this.DEFAULT_CAMERA.name = 'Camera';
-	this.DEFAULT_CAMERA.position.set( 0, 5, 10 );
+	// nws: change default camera position
+	this.DEFAULT_CAMERA.position.set( -5, 40, 0 );
 	this.DEFAULT_CAMERA.lookAt( new THREE.Vector3() );
 
 	var Signal = signals.Signal;

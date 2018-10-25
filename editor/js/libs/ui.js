@@ -945,6 +945,33 @@ UI.Button.prototype.setLabel = function ( value ) {
 
 };
 
+// nws: image control
+// Image
+
+UI.Image = function ( value ) {
+
+	UI.Element.call( this );
+
+	var dom = document.createElement( 'img' );
+	dom.className = 'Image';
+
+	this.dom = dom;
+	this.dom.src = value;
+
+	return this;
+
+};
+
+UI.Image.prototype = Object.create( UI.Element.prototype );
+UI.Image.prototype.constructor = UI.Image;
+
+UI.Image.prototype.setSrc = function ( value ) {
+
+	this.dom.src = value;
+
+	return this;
+
+};
 
 // Modal
 

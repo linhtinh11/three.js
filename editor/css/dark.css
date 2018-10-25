@@ -51,7 +51,7 @@ select {
 #viewport {
 	position: absolute;
 	top: 32px;
-	left: 0;
+	left: 300px;
 	right: 300px;
 	bottom: 0;
 }
@@ -80,6 +80,7 @@ select {
 
 #menubar {
 	position: absolute;
+	left:300px;
 	width: 100%;
 	height: 32px;
 	background: #111;
@@ -179,6 +180,39 @@ select {
 	}
 
 	#sidebar .Row {
+		min-height: 20px;
+		margin-bottom: 10px;
+	}
+
+#left-sidebar {
+	position: absolute;
+	left: 0;
+	top: 32px;
+	bottom: 0;
+	width: 300px;
+	background-color: #111;
+	overflow: auto;
+}
+
+	#left-sidebar * {
+		vertical-align: middle;
+	}
+
+	#left-sidebar .Panel {
+		color: #888;
+		padding: 10px;
+		border-top: 1px solid #222;
+	}
+
+	#left-sidebar .Panel.collapsed {
+		margin-bottom: 0;
+	}
+
+	#left-sidebar .Panel.Material canvas {
+		border: solid 1px #5A5A5A;
+	}
+
+	#left-sidebar .Row {
 		min-height: 20px;
 		margin-bottom: 10px;
 	}

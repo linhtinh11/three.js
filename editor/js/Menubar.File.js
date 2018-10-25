@@ -121,7 +121,7 @@ Menubar.File = function ( editor ) {
 		saveString( output, 'geometry.json' );
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	// Export Object
 
@@ -155,7 +155,7 @@ Menubar.File = function ( editor ) {
 		saveString( output, 'model.json' );
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	// Export Scene
 
@@ -180,11 +180,11 @@ Menubar.File = function ( editor ) {
 		saveString( output, 'scene.json' );
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	//
 
-	options.add( new UI.HorizontalRule() );
+	//options.add( new UI.HorizontalRule() );
 
 	// Export DAE
 
@@ -202,7 +202,7 @@ Menubar.File = function ( editor ) {
 		} );
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	// Export GLB
 
@@ -222,7 +222,7 @@ Menubar.File = function ( editor ) {
 		}, { binary: true, forceIndices: true, forcePowerOfTwoTextures: true } );
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	// Export GLTF
 
@@ -241,7 +241,7 @@ Menubar.File = function ( editor ) {
 
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	// Export OBJ
 
@@ -264,7 +264,7 @@ Menubar.File = function ( editor ) {
 		saveString( exporter.parse( object ), 'model.obj' );
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	// Export STL (ASCII)
 
@@ -296,7 +296,7 @@ Menubar.File = function ( editor ) {
 
 	//
 
-	options.add( new UI.HorizontalRule() );
+	//options.add( new UI.HorizontalRule() );
 
 	// Publish
 
@@ -388,7 +388,7 @@ Menubar.File = function ( editor ) {
 		}
 
 	} );
-	options.add( option );
+	//options.add( option );
 
 	//
 

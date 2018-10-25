@@ -18,6 +18,44 @@ Menubar.Add = function ( editor ) {
 	options.setClass( 'options' );
 	container.add( options );
 
+	// nws: add text geometry
+	// Text
+
+	var option = new UI.Row();
+	option.setClass( 'option' );
+	option.setTextContent( 'Text' );
+	option.onClick( function () {
+
+		var loader = new THREE.FontLoader();
+
+		loader.load( 'fonts/l-bold.json', function ( font ) {
+
+			editor.font = font;
+			var geometry = new THREE.TextGeometry( '完全無料！', {
+				font: font,
+				size: 0.75,
+				height: 0.5,
+				curveSegments: 0.2,
+				bevelEnabled: false,
+				bevelThickness: 0.1,
+				bevelSize: 0.1,
+				bevelSegments: 0.1
+			} );
+			geometry.translate(0, 0, 0).rotateZ(-180*3.14/180).rotateX(-90*3.14/180).translate(5.5, 0, 7).rotateX(180*Math.PI/180).rotateZ(180*Math.PI/180);
+
+			var material = new THREE.MeshStandardMaterial();
+			var mesh = new THREE.Mesh( geometry, material );
+			mesh.name = 'Text';
+			editor.execute( new AddObjectCommand( mesh ) );
+		} );
+
+	} );
+	options.add( option );
+
+	//
+
+	options.add( new UI.HorizontalRule() );
+
 	// Group
 
 	var option = new UI.Row();

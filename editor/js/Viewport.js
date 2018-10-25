@@ -277,6 +277,15 @@ var Viewport = function ( editor ) {
 
 	signals.editorCleared.add( function () {
 
+		// nws: add default directional light
+		var color = 0xffffff;
+		var intensity = 1;
+		var light = new THREE.DirectionalLight( color, intensity );
+		light.name = 'DirectionalLight';
+		light.target.name = 'DirectionalLight Target';
+		light.position.set( -5, 10, -7.5 );
+		editor.execute( new AddObjectCommand( light ) );
+
 		controls.center.set( 0, 0, 0 );
 		render();
 

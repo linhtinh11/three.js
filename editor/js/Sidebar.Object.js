@@ -54,6 +54,73 @@ Sidebar.Object = function ( editor ) {
 	container.addStatic( objectActions );
 	*/
 
+	// navigator buttons
+
+	var navigatorRow = new UI.Row();
+	var btnBack = new UI.Button('back').setMarginRight( '5px' );
+	var btnTop = new UI.Button('top').setMarginRight( '5px' );
+	var btnBottom = new UI.Button('bottom').setMarginRight( '5px' );
+	var btnLeft = new UI.Button('left').setMarginRight( '5px' );
+	var btnRight = new UI.Button('right');
+	navigatorRow.add(btnBack);
+	navigatorRow.add(btnTop);
+	navigatorRow.add(btnBottom);
+	navigatorRow.add(btnLeft);
+	navigatorRow.add(btnRight);
+
+	btnBack.onClick(function() {
+		var camera = editor.camera;
+		camera.rotation.x = -90 * Math.PI / 180;
+		camera.rotation.y = -0 * Math.PI / 180;
+		camera.rotation.z = -180 * Math.PI / 180;
+		camera.position.set(0, 50, 0);
+		camera.lookAt(0, 0, 0);
+		editor.signals.sceneGraphChanged.dispatch();
+
+	});
+
+	btnLeft.onClick(function() {
+		var camera = editor.camera;
+		camera.rotation.x = 0 * Math.PI / 180;
+		camera.rotation.y = 0 * Math.PI / 180;
+		camera.rotation.z = 0 * Math.PI / 180;
+		camera.position.set(30, 0, 0);
+		camera.lookAt(0, 0, 0);
+		editor.signals.sceneGraphChanged.dispatch();
+	});
+
+	btnRight.onClick(function() {
+		var camera = editor.camera;
+		camera.rotation.x = 0 * Math.PI / 180;
+		camera.rotation.y = 0 * Math.PI / 180;
+		camera.rotation.z = 0 * Math.PI / 180;
+		camera.position.set(-30, 0, 0);
+		camera.lookAt(0, 0, 0);
+		editor.signals.sceneGraphChanged.dispatch();
+	});
+
+	btnTop.onClick(function() {
+		var camera = editor.camera;
+		camera.rotation.x = 0 * Math.PI / 180;
+		camera.rotation.y = 0 * Math.PI / 180;
+		camera.rotation.z = 0 * Math.PI / 180;
+		camera.position.set(0, 0, -30);
+		camera.lookAt(0, 0, 0);
+		editor.signals.sceneGraphChanged.dispatch();
+	});
+
+	btnBottom.onClick(function() {
+		var camera = editor.camera;
+		camera.rotation.x = 0 * Math.PI / 180;
+		camera.rotation.y = 0 * Math.PI / 180;
+		camera.rotation.z = 0 * Math.PI / 180;
+		camera.position.set(0, 0, 30);
+		camera.lookAt(0, 0, 0);
+		editor.signals.sceneGraphChanged.dispatch();
+	});
+
+	container.add(navigatorRow);
+
 	// type
 
 	var objectTypeRow = new UI.Row();
@@ -95,6 +162,42 @@ Sidebar.Object = function ( editor ) {
 	objectNameRow.add( objectName );
 
 	container.add( objectNameRow );
+
+	// nws: change string for text geometry
+	// todo: keep the same position for new text
+	// text
+
+	var objectTextRow = new UI.Row();
+	var objectText = new UI.Input().setWidth( '150px' ).setFontSize( '12px' ).onChange( function () {
+
+		var object = editor.selected;
+		if (object.geometry != null && object.geometry.type === 'TextGeometry') {
+			var geometry = new THREE.TextGeometry( objectText.getValue(), {
+				font: editor.font,
+				size: 0.75,
+				height: 0.5,
+				curveSegments: 0.2,
+				bevelEnabled: false,
+				bevelThickness: 0.1,
+				bevelSize: 0.1,
+				bevelSegments: 0.1
+			} );
+			geometry.translate(0, 0, 0).rotateZ(-180*3.14/180).rotateX(-90*3.14/180).translate(5.5, 0, 7).rotateX(180*Math.PI/180).rotateZ(180*Math.PI/180);
+
+			var material = new THREE.MeshStandardMaterial();
+			var mesh = new THREE.Mesh( geometry, material );
+			mesh.name = 'Text';
+			//mesh.position.copy( object.matrixWorld.getPosition() );
+			editor.execute( new AddObjectCommand( mesh ) );
+			editor.execute( new RemoveObjectCommand( object ) );
+		}
+
+	} );
+
+	objectTextRow.add( new UI.Text( 'Text' ).setWidth( '90px' ) );
+	objectTextRow.add( objectText );
+
+	container.add( objectTextRow );
 
 	// position
 
@@ -596,6 +699,13 @@ Sidebar.Object = function ( editor ) {
 
 		objectUUID.setValue( object.uuid );
 		objectName.setValue( object.name );
+
+		// nws: update text ui
+		if (object.geometry != null && object.geometry.type === "TextGeometry") {
+			objectText.setValue( object.geometry.parameters.text );
+		} else {
+			objectText.setValue( "" );
+		}
 
 		objectPositionX.setValue( object.position.x );
 		objectPositionY.setValue( object.position.y );

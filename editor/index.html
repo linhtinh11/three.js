@@ -112,6 +112,12 @@
 		<script src="js/Menubar.Help.js"></script>
 		<script src="js/Menubar.Status.js"></script>
 		<script src="js/Sidebar.js"></script>
+		<!-- nws: for left sidebar -->
+		<script src="js/LeftSidebar.js"></script>
+		<script src="js/LeftSidebar.Case.js"></script>
+		<script src="js/LeftSidebar.Bottom.js"></script>
+		<script src="js/LeftSidebar.Object.js"></script>
+
 		<script src="js/Sidebar.Scene.js"></script>
 		<script src="js/Sidebar.Project.js"></script>
 		<script src="js/Sidebar.Settings.js"></script>
@@ -167,6 +173,8 @@
 
 		<script src="js/libs/html2canvas.js"></script>
 		<script src="js/libs/three.html.js"></script>
+		<!-- nws: for downloading stl file -->
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 		<script>
 
@@ -198,6 +206,10 @@
 
 			var sidebar = new Sidebar( editor );
 			document.body.appendChild( sidebar.dom );
+
+			// nws: left sidebar
+			var leftSidebar = new LeftSidebar( editor );
+			document.body.appendChild( leftSidebar.dom );
 
 			var modal = new UI.Modal();
 			document.body.appendChild( modal.dom );

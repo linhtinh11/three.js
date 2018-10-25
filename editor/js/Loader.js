@@ -9,6 +9,44 @@ var Loader = function ( editor ) {
 
 	this.texturePath = '';
 
+	// nws: load stl from server
+	// todo: don't fix the mesh position here
+	this.loadFileURL = function ( url ) {
+		//const axios = require('axios');
+		axios.get(url, {responseType: 'arraybuffer'})
+			.then(function (response) {
+				// handle success
+				//console.log(response.data);
+				var filename = "case.stl";
+				if (url.endsWith('dragon.stl')) {
+					filename = 'dragon.stl';
+				}
+				var geometry = new THREE.STLLoader().parse( response.data );
+				geometry.sourceType = "stl";
+				geometry.sourceFile = filename;
+
+				var material = new THREE.MeshStandardMaterial();
+
+				var mesh = new THREE.Mesh( geometry, material );
+				mesh.name = filename;
+				if (url.endsWith('case.stl')) {
+					mesh.geometry.scale(0.1, 0.1, 0.1).rotateX(90*Math.PI/180).translate(0, 0, 0).rotateX(180*Math.PI/180).rotateZ(180*Math.PI/180);
+				} else {
+					mesh.geometry.scale(0.01, 0.01, 0.01).rotateZ(90*Math.PI/180).translate(7, 0, 5).rotateX(180*Math.PI/180).rotateZ(180*Math.PI/180);
+				}
+
+				editor.execute( new AddObjectCommand( mesh ) );
+				
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			})
+			.then(function () {
+				// always executed
+			});
+	};
+
 	this.loadFiles = function ( files ) {
 
 		if ( files.length > 0 ) {
